@@ -1,0 +1,79 @@
+:root {
+    --bg-color: black;
+    --text-color: white;
+    --gray-btn: #d4d4d2;
+    --dark-btn: #505050;
+    --orange-btn: #ff9500;
+}
+
+body.day-mode {
+    --bg-color: white;
+    --text-color: black;
+    --gray-btn: #e0e0e0;
+    --dark-btn: #bdbdbd;
+    --orange-btn: #f57c00;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: block;
+    background-color: var(--bg-color);
+    overflow-y: auto;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    min-height: 520px;
+}
+
+.calculator {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+.display {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 4rem;
+    text-align: right;
+    padding: 10px;
+    border-radius: 10px;
+    height: 100px;
+}
+
+.btn-calculator {
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.btn-gray {
+    background-color: var(--gray-btn);
+    color: black;
+}
+
+.btn-dark {
+    background-color: var(--dark-btn);
+    color: white;
+}
+
+.btn-orange {
+    background-color: var(--orange-btn);
+    color: white;
+}
+
+.row > .col-6 {
+    flex: 0 0 auto;
+    width: 50%;
+}
