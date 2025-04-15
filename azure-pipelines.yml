@@ -17,6 +17,7 @@ stages:
   - job: BuildAndTest
     displayName: 'Build and Test .NET Projects'
     pool:
+      name: 'Azure Pipelines'
       vmImage: 'ubuntu-latest'
 
     steps:
@@ -52,6 +53,7 @@ stages:
   - job: BuildAndPushDocker
     displayName: 'Build and Push Docker Images'
     pool:
+      name: 'Azure Pipelines'
       vmImage: 'ubuntu-latest'
 
     steps:
