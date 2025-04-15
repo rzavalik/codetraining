@@ -1,0 +1,76 @@
+trigger:
+  branches:
+    include:
+      - main
+
+variables:
+  buildConfiguration: 'Release'
+  dockerRegistryServiceConnection: 'AzureACRConnection'
+  acrLoginServer: 'rzavalikcodetraining.azurecr.io'
+  tfWorkingDirectory: 'infra'
+  imageTag: '$(Build.BuildId)'
+
+stages:
+
+- stage: BuildTest
+  jobs:
+  - job: BuildAndTest
+    displayName: 'Build and Test .NET Projects'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '9.x'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet Packages'
+      inputs:
+        command: 'restore'
+        projects: |
+          src/Calculator.API/Calculator.API.csproj
+          src/Calculator.UI/Calculator.UI.csproj
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Projects'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-dependencies --configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Execute Unit Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*.Tests.csproj'
+
+- stage: Docker
+  dependsOn: BuildTest
+  jobs:
+  - job: BuildAndPushDocker
+    displayName: 'Build and Push Docker Images'
+    pool:
+      vmImage: 'ubuntu-latest'
+
+    steps:
+    - task: Docker@2
+      displayName: 'Build Calculator.API Image'
+      inputs:
+        repository: 'calculator-api'
+        command: 'buildAndPush'
+        Dockerfile: 'src/Calculator.API/Dockerfile'
+        tags: |
+          Calculator.API
+        containerRegistry: $(dockerRegistryServiceConnection)
+
+    - task: Docker@2
+      displayName: 'Build Calculator.UI Image'
+      inputs:
+        repository: 'calculator-ui'
+        command: 'buildAndPush'
+        Dockerfile: 'src/Calculator.UI/Dockerfile'
+        tags: |
+          Calculator.UI
+        containerRegistry: $(dockerRegistryServiceConnection)
