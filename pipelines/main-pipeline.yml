@@ -3,12 +3,38 @@ trigger:
     include:
       - main
 
+parameters:
+  - name: buildConfiguration
+    displayName: Build Configuration
+    type: string
+    default: 'Release'
+
+  - name: dockerRegistryServiceConnection
+    displayName: ACR Connection Name
+    type: string
+    default: 'AzureACRConnection'
+
+  - name: acrLoginServer
+    displayName: ACR Login Server
+    type: string
+    default: 'rzavalikcodetraining.azurecr.io'
+
+  - name: tfWorkingDirectory
+    displayName: Terraform Working Directory
+    type: string
+    default: 'infra'
+
+  - name: imageTag
+    displayName: Docker Image Tag
+    type: string
+    default: '$(Build.BuildId)'
+
 variables:
-  buildConfiguration: 'Release'
-  dockerRegistryServiceConnection: 'AzureACRConnection'
-  acrLoginServer: 'rzavalikcodetraining.azurecr.io'
-  tfWorkingDirectory: 'infra'
-  imageTag: '$(Build.BuildId)'
+  buildConfiguration: '${{ parameters.buildConfiguration }}'
+  dockerRegistryServiceConnection: '${{ parameters.dockerRegistryServiceConnection }}'
+  acrLoginServer: '${{ parameters.acrLoginServer }}'
+  tfWorkingDirectory: '${{ parameters.tfWorkingDirectory }}'
+  imageTag: '${{ parameters.imageTag }}'
 
 stages:
 
