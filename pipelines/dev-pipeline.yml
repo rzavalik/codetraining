@@ -1,0 +1,60 @@
+trigger:
+  branches:
+    include:
+      - feature/*
+      - bugfix/*
+      - hotfix/*
+
+parameters:
+  - name: buildConfiguration
+    displayName: Build Configuration
+    type: string
+    default: 'Release'
+
+variables:
+  buildConfiguration: '${{ parameters.buildConfiguration }}'
+
+stages:
+- stage: BuildTest
+  jobs:
+  - job: BuildAndTest
+    displayName: 'Build and Test Dev Branches'
+    pool:
+      name: 'Azure Pipelines'
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: UseDotNet@2
+      inputs:
+        packageType: 'sdk'
+        version: '9.x'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore NuGet Packages'
+      inputs:
+        command: 'restore'
+        projects: |
+          src/Calculator.API/Calculator.API.csproj
+          src/Calculator.UI/Calculator.UI.csproj
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Projects'
+      inputs:
+        command: 'build'
+        projects: '**/*.csproj'
+        arguments: '--no-dependencies --configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Execute Unit Tests'
+      inputs:
+        command: 'test'
+        projects: '**/*.Tests.csproj'
+        arguments: '--logger trx --configuration $(buildConfiguration)'
+    
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results'
+      condition: succeededOrFailed()
+      inputs:
+        testResultsFiles: '**/TestResults/*.trx'
+        testResultsFormat: 'VSTest'
+        mergeTestResults: true
+        failTaskOnFailedTests: false
