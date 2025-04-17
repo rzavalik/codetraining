@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -14,22 +13,25 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
-    <PackageReference Include="Moq" Version="4.20.72" />
-    <PackageReference Include="NUnit" Version="4.3.2" />
-    <PackageReference Include="NUnit.Analyzers" Version="4.7.0">
+    <PackageReference Include="NetArchTest.Rules" Version="1.3.2" />
+    <PackageReference Include="Shouldly" Version="4.3.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter" Version="5.0.0" />
-    <PackageReference Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Calculator.API\Calculator.API.csproj" />
+    <ProjectReference Include="..\Calculator.Application\Calculator.Application.csproj" />
+    <ProjectReference Include="..\Calculator.Domain\Calculator.Domain.csproj" />
+    <ProjectReference Include="..\Calculator.Infrastructure\Calculator.Infrastructure.csproj" />
     <ProjectReference Include="..\Calculator.UI\Calculator.UI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
   </ItemGroup>
 
 </Project>
