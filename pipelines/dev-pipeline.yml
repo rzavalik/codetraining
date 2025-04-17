@@ -50,14 +50,21 @@ stages:
       inputs:
         command: 'test'
         projects: '**/*.Tests.*.csproj'
-        arguments: '--configuration $(buildConfiguration) --logger trx'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
         
     - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
+      displayName: 'Publish Test Results (.trx)'
       condition: succeededOrFailed()
       inputs:
-        testResultsFiles: '**/TestResults/*.trx'
-        searchFolder: '$(Agent.TempDirectory)/TestResults'
+        testResultsFiles: '**/TestResults/**/*.trx'
+        searchFolder: '$(Agent.TempDirectory)'
         testResultsFormat: 'VSTest'
         mergeTestResults: true
-        failTaskOnFailedTests: false
+
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish Code Coverage'
+      condition: succeededOrFailed()
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+        reportDirectory: '$(Agent.TempDirectory)'

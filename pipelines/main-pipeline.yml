@@ -75,16 +75,24 @@ stages:
       inputs:
         command: 'test'
         projects: '**/*.Tests.*.csproj'
-        arguments: '--configuration $(buildConfiguration) --logger trx'
+        arguments: '--configuration $(buildConfiguration) --collect:"XPlat Code Coverage"'
         
     - task: PublishTestResults@2
       displayName: 'Publish Test Results'
       condition: succeededOrFailed()
       inputs:
-        testResultsFiles: '**/TestResults/*.trx'
-        searchFolder: '$(Agent.TempDirectory)/TestResults'
+        testResultsFiles: '**/*.trx'
+        searchFolder: '$(Agent.TempDirectory)'
+        testResultsFormat: 'VSTest'
         mergeTestResults: true
-        failTaskOnFailedTests: false
+
+    - task: PublishCodeCoverageResults@1
+      displayName: 'Publish Code Coverage'
+      condition: succeededOrFailed()
+      inputs:
+        codeCoverageTool: 'Cobertura'
+        summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+        reportDirectory: '$(Agent.TempDirectory)'
 
 - stage: Docker
   dependsOn: BuildTest
