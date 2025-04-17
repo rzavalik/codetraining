@@ -61,14 +61,13 @@ stages:
       inputs:
         command: 'restore'
         projects: |
-          src/Calculator.API/Calculator.API.csproj
-          src/Calculator.UI/Calculator.UI.csproj
+          src/Calculator.sln
 
     - task: DotNetCoreCLI@2
       displayName: 'Build Projects'
       inputs:
         command: 'build'
-        projects: '**/*.csproj'
+        projects: 'Calculator.sln'
         arguments: '--no-dependencies --configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
