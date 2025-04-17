@@ -24,6 +24,7 @@ stages:
     displayName: 'Build and Test Dev Branches'
     pool:
       name: 'Self-hosted'
+
     steps:
     - task: UseDotNet@2
       inputs:
@@ -40,7 +41,7 @@ stages:
       displayName: 'Build Projects'
       inputs:
         command: 'build'
-        projects: '**/*.csproj'
+        projects: 'src/Calculator.sln'
         arguments: '--no-dependencies --configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
@@ -48,8 +49,8 @@ stages:
       inputs:
         command: 'test'
         projects: '**/*.Tests.*.csproj'
-        arguments: '--logger trx --configuration $(buildConfiguration)'
-    
+        arguments: '--configuration $(buildConfiguration) --logger trx'
+        
     - task: PublishTestResults@2
       displayName: 'Publish Test Results'
       condition: succeededOrFailed()

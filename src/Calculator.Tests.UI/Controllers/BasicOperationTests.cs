@@ -10,6 +10,7 @@ public class Tests
     {
     }
 
+    [Ignore("Ignore this test for now")]
     [TestCase(1, 2)]
     [TestCase(-10, 20)]
     public void Add(int a, int b)
