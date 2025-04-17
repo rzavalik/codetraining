@@ -60,14 +60,13 @@ stages:
       displayName: 'Restore NuGet Packages'
       inputs:
         command: 'restore'
-        projects: |
-          src/Calculator.sln
+        projects: 'src/Calculator.sln'
 
     - task: DotNetCoreCLI@2
       displayName: 'Build Projects'
       inputs:
         command: 'build'
-        projects: 'Calculator.sln'
+        projects: 'src/Calculator.sln'
         arguments: '--no-dependencies --configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
@@ -79,7 +78,7 @@ stages:
         
     - task: PublishTestResults@2
       displayName: 'Publish Test Results'
-      condition: succeededOrFailed()  # publica mesmo que tenha falha nos testes
+      condition: succeededOrFailed()
       inputs:
         testResultsFiles: '**/TestResults/*.trx'
         testResultsFormat: 'VSTest'
