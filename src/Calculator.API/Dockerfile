@@ -2,7 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
 WORKDIR /src
 COPY *.csproj ./Calculator.API/
-RUN dotnet restore ./Calculator.API.csproj
+RUN dotnet restore ./Calculator.API/Calculator.API.csproj
 COPY . .
 WORKDIR /src/Calculator.API
 RUN dotnet publish -c Release -o /app/publish
