@@ -73,7 +73,7 @@ stages:
       displayName: 'Execute Unit Tests'
       inputs:
         command: 'test'
-        projects: '**/*.Tests.csproj'
+        projects: '**/*.Tests.*.csproj'
         arguments: '--configuration $(buildConfiguration) --logger trx'
         
     - task: PublishTestResults@2
