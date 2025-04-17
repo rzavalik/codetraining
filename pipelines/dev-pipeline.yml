@@ -20,8 +20,7 @@ stages:
   - job: BuildAndTest
     displayName: 'Build and Test Dev Branches'
     pool:
-      name: 'Azure Pipelines'
-      vmImage: 'ubuntu-latest'
+      name: 'Self-hosted'
     steps:
     - task: UseDotNet@2
       inputs:
