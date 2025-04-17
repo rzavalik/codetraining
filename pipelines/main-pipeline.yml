@@ -102,6 +102,7 @@ stages:
         Dockerfile: 'src/Calculator.API/Dockerfile'
         tags: |
           Calculator.API
+        buildContext: 'src'
         containerRegistry: $(dockerRegistryServiceConnection)
 
     - task: Docker@2
@@ -112,4 +113,5 @@ stages:
         Dockerfile: 'src/Calculator.UI/Dockerfile'
         tags: |
           Calculator.UI
+        buildContext: 'src'
         containerRegistry: $(dockerRegistryServiceConnection)
