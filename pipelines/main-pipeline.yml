@@ -48,8 +48,7 @@ stages:
   - job: BuildAndTest
     displayName: 'Build and Test .NET Projects'
     pool:
-      name: 'Azure Pipelines'
-      vmImage: 'ubuntu-latest'
+      name: 'Self-hosted'
 
     steps:
     - task: UseDotNet@2
@@ -94,8 +93,7 @@ stages:
   - job: BuildAndPushDocker
     displayName: 'Build and Push Docker Images'
     pool:
-      name: 'Azure Pipelines'
-      vmImage: 'ubuntu-latest'
+      name: 'Self-hosted'
 
     steps:
     - task: Docker@2
