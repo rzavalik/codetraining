@@ -30,6 +30,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0. Other Assets", "0. Other Assets", "{CC11703F-DBF6-4091-A4A9-1234E1DD22E3}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		..\pipelines\dev-pipeline.yml = ..\pipelines\dev-pipeline.yml
+		..\pipelines\main-pipeline.yml = ..\pipelines\main-pipeline.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator.Tests.UI", "Calculator.Tests.UI\Calculator.Tests.UI.csproj", "{9CE17558-7947-433B-85FB-948E69276C16}"

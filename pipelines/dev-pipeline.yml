@@ -1,9 +1,12 @@
 trigger:
   branches:
     include:
+      - features/*
       - feature/*
       - bugfix/*
+      - bugfixes/*
       - hotfix/*
+      - hotfixes/*
 
 parameters:
   - name: buildConfiguration
