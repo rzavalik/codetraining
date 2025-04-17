@@ -36,13 +36,14 @@ stages:
       inputs:
         command: 'restore'
         projects: 'src/Calculator.sln'
+        arguments: '--configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
       displayName: 'Build Projects'
       inputs:
         command: 'build'
         projects: 'src/Calculator.sln'
-        arguments: '--no-dependencies --configuration $(buildConfiguration)'
+        arguments: '--configuration $(buildConfiguration)'
 
     - task: DotNetCoreCLI@2
       displayName: 'Execute Unit Tests'
