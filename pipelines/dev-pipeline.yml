@@ -49,13 +49,14 @@ stages:
       inputs:
         command: 'test'
         projects: '**/*.Tests.*.csproj'
-        arguments: '--configuration $(buildConfiguration) --logger trx'
+        arguments: '--configuration $(buildConfiguration) --logger trx --results-directory $(Agent.BuildDirectory)/TestResults'
         
     - task: PublishTestResults@2
       displayName: 'Publish Test Results'
       condition: succeededOrFailed()
       inputs:
         testResultsFiles: '**/TestResults/*.trx'
+        searchFolder: '$(Agent.BuildDirectory)/TestResults'
         testResultsFormat: 'VSTest'
         mergeTestResults: true
         failTaskOnFailedTests: false
