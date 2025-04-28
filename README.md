@@ -4,7 +4,7 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![.NET](https://img.shields.io/badge/.NET-8.0-blue.svg)](https://dotnet.microsoft.com/en-us/)
-[![Build Status](https://dev.azure.com/zavalik/codetraining/_apis/build/status%2FCI%20for%20Main%20Branch?branchName=main)](https://dev.azure.com/zavalik/codetraining/_build/latest?definitionId=1&branchName=main)
+[![Build Status](https://dev.azure.com/zavalik/codetraining/_apis/build/status%2FCI%20for%20Main%20Branch?branchName=main)
 ---
 
 ## 📖 Overview
